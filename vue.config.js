@@ -5,6 +5,7 @@ module.exports = defineConfig({
     proxy: {
       '^/api': {
         target: 'https://digital-camera-server-demo.onrender.com',
+        changeOrigin: true,
       },
     },
   },
