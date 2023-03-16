@@ -1,7 +1,7 @@
 import createApiClient from './api.service.js';
 
 class CartService {
-  constructor(baseUrl = 'https://digital-camera-server-demo.onrender.com/api/cart') {
+  constructor(baseUrl = '/api/cart') {
     this.api = createApiClient(baseUrl);
   }
 
