@@ -30,7 +30,8 @@
   </section>
 </template>
 <script>
-import cameraService from '../services/camera.service.js';
+import axios from 'axios';
+// import cameraService from '../services/camera.service.js';
 import cartService from '../services/cart.service.js';
 
 export default {
@@ -42,7 +43,10 @@ export default {
   },
   methods: {
     async getAllCameras() {
-      this.cameras = await cameraService.getAllCameras();
+      // this.cameras = await cameraService.getAllCameras();
+      this.cameras = await (
+        await axios.get('https://digital-camera-server-demo.onrender.com/api/cameras')
+      ).data.data;
       console.log(this.cameras);
     },
     async addToCart(cameraId) {

@@ -6,7 +6,9 @@ class CameraService {
   }
 
   async getAllCameras() {
-    return await await this.api.get('/');
+    return await (
+      await this.api.get('/')
+    ).data.data;
   }
 
   async createCamera(data) {
