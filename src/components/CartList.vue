@@ -166,7 +166,7 @@ export default {
       for (let i = 0; i <= this.products.length - 1; i++) {
         this.products[i] = await axios.get(
           `https://digital-camera-server-demo.onrender.com/api/cameras/${this.products[i].productId}`
-        );
+        ).data.data;
         this.finalMoney += Number(this.products[i].price.replace(/[^0-9.-]+/g, ''));
       }
     },
