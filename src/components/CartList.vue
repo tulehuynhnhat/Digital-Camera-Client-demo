@@ -160,14 +160,19 @@ export default {
   },
   methods: {
     async getCart(userId) {
-      this.products = await axios.get(
-        `https://digital-camera-server-demo.onrender.com/api/cart/${userId}`
-      );
-      for (let i = 0; i <= this.products.length - 1; i++) {
-        this.products[i] = await axios.get(
-          `https://digital-camera-server-demo.onrender.com/api/cameras/${this.products[i].productId}`
-        ).data.data;
-        this.finalMoney += Number(this.products[i].price.replace(/[^0-9.-]+/g, ''));
+      try {
+        this.products = await axios.get(
+          `https://digital-camera-server-demo.onrender.com/api/cart/${userId}`
+        ).data.data.products;
+        console.log(this.products);
+        for (let i = 0; i <= this.products.length - 1; i++) {
+          this.products[i] = await axios.get(
+            `https://digital-camera-server-demo.onrender.com/api/cameras/${this.products[i].productId}`
+          ).data.data;
+          this.finalMoney += Number(this.products[i].price.replace(/[^0-9.-]+/g, ''));
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
 
