@@ -157,7 +157,7 @@ export default {
         ).data;
         localStorage.setItem('user', JSON.stringify(newUser));
         this.$store.state.logged = true;
-        this.$router.push('/cameras');
+        this.$router.push('https://digital-camera-client-demo.vercel.app/cameras');
       } catch (error) {
         this.message = error.response.data.message;
       }
