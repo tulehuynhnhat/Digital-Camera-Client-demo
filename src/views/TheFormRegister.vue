@@ -103,9 +103,9 @@
 </template>
 
 <script>
+import axios from 'axios';
 import * as yup from 'yup';
 import { Form, Field, ErrorMessage } from 'vee-validate';
-import userService from '../services/user.service.js';
 
 export default {
   components: {
@@ -149,7 +149,10 @@ export default {
     },
     async register(user) {
       try {
-        const newUser = await userService.register(user);
+        const newUser = await axios.post(
+          `https://digital-camera-server-demo.onrender.com/api/users/register`,
+          user
+        );
         console.log(newUser.data.user.name);
         localStorage.setItem('user', JSON.stringify(newUser));
         this.$store.state.logged = true;

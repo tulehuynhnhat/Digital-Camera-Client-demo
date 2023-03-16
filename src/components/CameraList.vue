@@ -32,7 +32,7 @@
 <script>
 import axios from 'axios';
 // import cameraService from '../services/camera.service.js';
-import cartService from '../services/cart.service.js';
+// import cartService from '../services/cart.service.js';
 
 export default {
   data() {
@@ -53,9 +53,11 @@ export default {
       try {
         const userId = JSON.parse(localStorage.getItem('user')).data.user._id;
         const product = Object.assign({}, { productId: cameraId });
-        return await cartService.addProduct(product, userId).catch((error) => {
-          console.log(error);
-        });
+        return await axios
+          .patch(`https://digital-camera-server-demo.onrender.com/api/cart/${userId}`, product)
+          .catch((error) => {
+            console.log(error);
+          });
       } catch (error) {
         alert('Đăng nhập để thêm vào giỏ hàng');
       }

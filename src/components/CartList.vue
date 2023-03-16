@@ -137,8 +137,9 @@
   </section>
 </template>
 <script>
-import cartService from '../services/cart.service.js';
-import cameraService from '../services/camera.service.js';
+import axios from 'axios';
+// import cartService from '../services/cart.service.js';
+// import cameraService from '../services/camera.service.js';
 
 export default {
   components: {},
@@ -159,18 +160,22 @@ export default {
   },
   methods: {
     async getCart(userId) {
-      this.products = await cartService.getCart(userId);
+      this.products = await axios.get(
+        `https://digital-camera-server-demo.onrender.com/api/cart/${userId}`
+      );
       for (let i = 0; i <= this.products.length - 1; i++) {
-        this.products[i] = await cameraService.getCamera(this.products[i].productId);
+        this.products[i] = await axios.get(
+          `https://digital-camera-server-demo.onrender.com/api/cameras/${this.products[i].productId}`
+        );
         this.finalMoney += Number(this.products[i].price.replace(/[^0-9.-]+/g, ''));
       }
-
-      console.log(this.products);
     },
 
     async deleteProduct(product) {
       let userId = JSON.parse(localStorage.getItem('user')).data.user._id;
-      await cartService.deleteProduct(userId, { productId: product });
+      await axios.delete(`https://digital-camera-server-demo.onrender.com/api/cart/${userId}`, {
+        data: { productId: product },
+      });
       await this.getCart(userId);
       this.finalMoney = 0;
       for (let i = 0; i <= this.products.length - 1; i++) {
@@ -184,7 +189,7 @@ export default {
         );
       }
       let userId = JSON.parse(localStorage.getItem('user')).data.user._id;
-      await cartService.refreshCart(userId);
+      await axios.post(`https://digital-camera-server-demo.onrender.com/api/cart/${userId}`);
       this.products = [];
       this.getCart(userId);
       this.finalMoney = 0;

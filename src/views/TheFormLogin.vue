@@ -63,8 +63,9 @@
   </section>
 </template>
 <script>
+import axios from 'axios';
 import * as yup from 'yup';
-import userService from '../services/user.service.js';
+// import userService from '../services/user.service.js';
 
 import { Form, Field, ErrorMessage } from 'vee-validate';
 export default {
@@ -105,7 +106,10 @@ export default {
         });
     },
     async login(user) {
-      return await userService.login(user);
+      return await axios.post(
+        `https://digital-camera-server-demo.onrender.com/api/users/login`,
+        user
+      );
     },
     resetMessage() {
       this.message = '';
