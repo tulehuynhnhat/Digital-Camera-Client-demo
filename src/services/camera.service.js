@@ -1,7 +1,7 @@
 import createApiClient from './api.service.js';
 
 class CameraService {
-  constructor(baseUrl = '/api/cameras') {
+  constructor(baseUrl = 'https://digital-camera-server-demo.onrender.com/api/cameras') {
     this.api = createApiClient(baseUrl);
   }
 
