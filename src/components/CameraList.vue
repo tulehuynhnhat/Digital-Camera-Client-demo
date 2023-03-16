@@ -47,7 +47,6 @@ export default {
       this.cameras = await (
         await axios.get('https://digital-camera-server-demo.onrender.com/api/cameras')
       ).data.data;
-      console.log(this.cameras);
     },
     async addToCart(cameraId) {
       try {
