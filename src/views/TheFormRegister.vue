@@ -149,11 +149,12 @@ export default {
     },
     async register(user) {
       try {
-        const newUser = await axios.post(
-          `https://digital-camera-server-demo.onrender.com/api/users/register`,
-          user
-        );
-        console.log(newUser.data.user.name);
+        const newUser = (
+          await axios.post(
+            `https://digital-camera-server-demo.onrender.com/api/users/register`,
+            user
+          )
+        ).data;
         localStorage.setItem('user', JSON.stringify(newUser));
         this.$store.state.logged = true;
         this.$router.push('/cameras');
